@@ -1,0 +1,2225 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap");
+
+@import "tailwindcss";
+
+
+:root {
+  --blue: #182b63;
+  --blue-dark: #101d48;
+  --blue-light: #243b7a;
+
+  --cream: #eee4d0;
+  --cream-soft: #d9ccb5;
+
+  --gold: #c6a66b;
+
+  --shadow:
+    rgba(5, 10, 30, 0.45);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background:
+    var(--blue);
+
+  color:
+    var(--cream);
+
+  overflow:
+    hidden;
+
+  font-family:
+    "Inter",
+    sans-serif;
+}
+
+
+body.modal-open {
+  overflow:
+    hidden;
+}
+
+
+button {
+  font-family:
+    inherit;
+}
+
+
+/* =========================================
+   PRELOADER — CURTAIN PANELS
+========================================= */
+
+.preloader-panel {
+  position: fixed;
+
+  top: 0;
+
+  height: 100vh;
+
+  width: 50vw;
+
+  z-index: 999;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      #263c7c 0%,
+      var(--blue) 55%,
+      var(--blue-dark) 100%
+    );
+
+  background-attachment:
+    fixed;
+
+  background-size:
+    100vw 100vh;
+
+  transition:
+    transform
+    0.95s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    );
+}
+
+
+.preloader-panel-left {
+  left: 0;
+}
+
+
+.preloader-panel-right {
+  right: 0;
+}
+
+
+.preloader-panel-exit-left {
+  transform:
+    translateX(-100%);
+
+  pointer-events:
+    none;
+}
+
+
+.preloader-panel-exit-right {
+  transform:
+    translateX(100%);
+
+  pointer-events:
+    none;
+}
+
+
+/* =========================================
+   PRELOADER — CONTENT
+========================================= */
+
+.preloader-content {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  pointer-events: none;
+
+  transition:
+    opacity
+    0.45s ease;
+}
+
+
+.preloader-content-exit {
+  opacity: 0;
+}
+
+
+/* =========================================
+   PRELOADER — DRAWN FRAME
+========================================= */
+
+.preloader-frame {
+  position: absolute;
+
+  inset: 26px;
+
+  pointer-events: none;
+}
+
+
+.preloader-frame-edge {
+  position: absolute;
+
+  background: var(--gold);
+
+  opacity: 0.8;
+}
+
+
+.preloader-frame-top,
+.preloader-frame-bottom {
+  left: 0;
+  right: 0;
+
+  height: 1px;
+
+  transform: scaleX(0);
+
+  animation:
+    preloader-frame-x
+    0.9s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    0.05s
+    both;
+}
+
+
+.preloader-frame-top {
+  top: 0;
+}
+
+
+.preloader-frame-bottom {
+  bottom: 0;
+}
+
+
+.preloader-frame-left,
+.preloader-frame-right {
+  top: 0;
+  bottom: 0;
+
+  width: 1px;
+
+  transform: scaleY(0);
+
+  animation:
+    preloader-frame-y
+    0.9s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    0.05s
+    both;
+}
+
+
+.preloader-frame-left {
+  left: 0;
+}
+
+
+.preloader-frame-right {
+  right: 0;
+}
+
+
+@keyframes preloader-frame-x {
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+
+@keyframes preloader-frame-y {
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+
+/* =========================================
+   PRELOADER — GOLD-LEAF WORDMARK
+========================================= */
+
+.preloader-logo {
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    58px;
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    0.16em;
+
+  background-image:
+    linear-gradient(
+      100deg,
+      #8b652e 0%,
+      #e1c27a 25%,
+      #f6e9c9 50%,
+      #c6a66b 75%,
+      #8b652e 100%
+    );
+
+  background-size:
+    250% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  opacity: 0;
+
+  transform: translateY(18px);
+
+  animation:
+    preloader-logo-in
+    0.9s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    0.35s
+    both,
+
+    preloader-logo-shimmer
+    3.5s
+    linear
+    1.1s
+    infinite;
+}
+
+
+@keyframes preloader-logo-in {
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes preloader-logo-shimmer {
+
+  from {
+    background-position: 0% 0;
+  }
+
+  to {
+    background-position: -250% 0;
+  }
+}
+
+
+/* =========================================
+   PRELOADER — ORNAMENT & CAPTION
+========================================= */
+
+.preloader-rule {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 24px;
+
+  opacity: 0;
+
+  animation:
+    preloader-fade-in
+    0.6s ease
+    1.05s
+    both;
+}
+
+
+.preloader-rule::before,
+.preloader-rule::after {
+  content: "";
+
+  width: 0;
+
+  height: 1px;
+
+  background: var(--gold);
+
+  animation:
+    preloader-rule-grow
+    0.6s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    1.15s
+    both;
+}
+
+
+.preloader-rule-diamond {
+  width: 5px;
+  height: 5px;
+
+  background: var(--gold);
+
+  transform: rotate(45deg) scale(0);
+
+  animation:
+    preloader-diamond-in
+    0.5s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    1.45s
+    both;
+}
+
+
+@keyframes preloader-fade-in {
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes preloader-rule-grow {
+
+  to {
+    width: 26px;
+  }
+}
+
+
+@keyframes preloader-diamond-in {
+
+  to {
+    transform: rotate(45deg) scale(1);
+  }
+}
+
+
+.preloader-caption {
+  margin-top: 18px;
+
+  font-size: 9px;
+
+  letter-spacing: 0.28em;
+
+  color: var(--cream-soft);
+
+  opacity: 0;
+
+  animation:
+    preloader-fade-in
+    0.7s ease
+    1.65s
+    both;
+}
+
+
+/* =========================================
+   MAIN GALLERY
+========================================= */
+
+
+.gallery {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      #263c7c 0%,
+      var(--blue) 52%,
+      var(--blue-dark) 100%
+    );
+
+  color:
+    var(--cream);
+}
+
+
+/* =========================================
+   SUBTLE BLUE TEXTURE
+========================================= */
+
+.gallery::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+
+  opacity: 0.16;
+
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,0.18)
+      0.6px,
+      transparent 0.6px
+    );
+
+  background-size:
+    5px 5px;
+
+  mix-blend-mode:
+    soft-light;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.top-bar {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  z-index: 200;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding:
+    28px 35px;
+
+  pointer-events: none;
+
+  color:
+    var(--cream);
+}
+
+
+.logo {
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    30px;
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    0.12em;
+}
+
+
+.menu-button {
+  border: 0;
+
+  padding: 0;
+
+  background:
+    transparent;
+
+  color:
+    var(--cream);
+
+  cursor:
+    pointer;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.2em;
+
+  pointer-events:
+    auto;
+}
+
+
+/* =========================================
+   PAINTING FIELD
+========================================= */
+
+.paintings {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 20;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   PAINTINGS
+========================================= */
+
+.painting {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  display: block;
+
+  padding: 0;
+
+  border: 0;
+
+  background:
+    transparent;
+
+  pointer-events:
+    auto;
+
+  cursor:
+    pointer;
+
+  will-change:
+    transform;
+
+  transform-origin:
+    center center;
+
+  backface-visibility:
+    hidden;
+
+  transition:
+    filter
+    0.5s ease;
+}
+
+
+/* =========================================
+   SIZES
+========================================= */
+
+.painting-1 {
+  width:
+    235px;
+
+  height:
+    165px;
+}
+
+
+.painting-2 {
+  width:
+    170px;
+
+  height:
+    235px;
+}
+
+
+.painting-3 {
+  width:
+    250px;
+
+  height:
+    185px;
+}
+
+
+.painting-4 {
+  width:
+    185px;
+
+  height:
+    250px;
+}
+
+
+.painting-5 {
+  width:
+    180px;
+
+  height:
+    240px;
+}
+
+
+.painting-6 {
+  width:
+    220px;
+
+  height:
+    310px;
+}
+
+
+.painting-7 {
+  width:
+    220px;
+
+  height:
+    300px;
+}
+
+
+.painting-8 {
+  width:
+    220px;
+
+  height:
+    290px;
+}
+
+
+.painting-9 {
+  width:
+    220px;
+
+  height:
+    290px;
+}
+
+
+.painting-10 {
+  width:
+    250px;
+
+  height:
+    180px;
+}
+
+
+.painting-11 {
+  width:
+    240px;
+
+  height:
+    192px;
+}
+
+
+.painting-12 {
+  width:
+    175px;
+
+  height:
+    200px;
+}
+
+
+.painting-13 {
+  width:
+    250px;
+
+  height:
+    210px;
+}
+
+
+.painting-14 {
+  width:
+    170px;
+
+  height:
+    205px;
+}
+
+
+.painting-15 {
+  width:
+    235px;
+
+  height:
+    160px;
+}
+
+
+.painting-16 {
+  width:
+    210px;
+
+  height:
+    210px;
+}
+
+
+.painting-17 {
+  width:
+    165px;
+
+  height:
+    210px;
+}
+
+
+.painting-18 {
+  width:
+    190px;
+
+  height:
+    220px;
+}
+
+
+.painting-19 {
+  width:
+    225px;
+
+  height:
+    200px;
+}
+
+
+.painting-20 {
+  width:
+    175px;
+
+  height:
+    217px;
+}
+
+
+.painting-21 {
+  width:
+    210px;
+
+  height:
+    160px;
+}
+
+
+.painting-22 {
+  width:
+    260px;
+
+  height:
+    175px;
+}
+
+
+.painting-23 {
+  width:
+    245px;
+
+  height:
+    172px;
+}
+
+
+.painting-24 {
+  width:
+    230px;
+
+  height:
+    170px;
+}
+
+
+/* =========================================
+   FRAME
+========================================= */
+
+.painting-frame {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow:
+    hidden;
+
+  padding:
+    6px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b28b45,
+      #e1c27a,
+      #8b652e,
+      #cba85e
+    );
+
+  box-shadow:
+    0 25px 55px
+    var(--shadow);
+
+  transition:
+    transform
+    0.8s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    ),
+
+    box-shadow
+    0.8s ease;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.painting-frame img {
+  display:
+    block;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    cover;
+
+  backface-visibility:
+    hidden;
+
+  transition:
+    transform
+    1s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    );
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.painting:hover {
+  filter:
+    brightness(1.08);
+}
+
+
+.painting:hover
+.painting-frame {
+  transform:
+    scale(1.09);
+
+  box-shadow:
+    0 45px 100px
+    rgba(
+      0,
+      0,
+      0,
+      0.6
+    );
+}
+
+
+.painting:hover
+.painting-frame img {
+  transform:
+    scale(1.08);
+}
+
+
+/* =========================================
+   VIEW OVERLAY
+========================================= */
+
+.painting-overlay {
+  position:
+    absolute;
+
+  inset:
+    6px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-end;
+
+  justify-content:
+    flex-end;
+
+  padding:
+    14px;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(
+        5,
+        8,
+        25,
+        0.72
+      ),
+      transparent 50%
+    );
+
+  opacity:
+    0;
+
+  transition:
+    opacity
+    0.5s ease;
+}
+
+
+.painting:hover
+.painting-overlay {
+  opacity:
+    1;
+}
+
+
+.painting-overlay span {
+  color:
+    white;
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    0.25em;
+
+  transform:
+    translateY(8px);
+
+  transition:
+    transform
+    0.5s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    );
+}
+
+
+.painting:hover
+.painting-overlay span {
+  transform:
+    translateY(0);
+}
+
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.bottom-bar {
+  position:
+    absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width:
+    100%;
+
+  z-index:
+    200;
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  padding:
+    28px 35px;
+
+  color:
+    var(--cream-soft);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    0.2em;
+
+  pointer-events:
+    none;
+}
+
+
+/* =========================================
+   ARTWORK DETAIL
+========================================= */
+
+.artwork-overlay {
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    500;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    6vw;
+
+  padding:
+    7vw;
+
+  background:
+    var(--blue-dark);
+
+  color:
+    var(--cream);
+
+  animation:
+    overlayIn
+    0.5s ease
+    both;
+}
+
+
+@keyframes overlayIn {
+
+  from {
+    opacity:
+      0;
+
+    transform:
+      scale(1.025);
+  }
+
+  to {
+    opacity:
+      1;
+
+    transform:
+      scale(1);
+  }
+}
+
+
+/* =========================================
+   CLOSE
+========================================= */
+
+.close-button {
+  position:
+    absolute;
+
+  top:
+    30px;
+
+  right:
+    35px;
+
+  z-index:
+    10;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  color:
+    var(--cream);
+
+  cursor:
+    pointer;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.18em;
+}
+
+
+.close-button span {
+  margin-left:
+    6px;
+
+  font-size:
+    18px;
+}
+
+
+/* =========================================
+   DETAIL NUMBER
+========================================= */
+
+.detail-number {
+  position:
+    absolute;
+
+  left:
+    35px;
+
+  bottom:
+    30px;
+
+  color:
+    var(--gold);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.2em;
+}
+
+
+/* =========================================
+   DETAIL IMAGE
+========================================= */
+
+.detail-image {
+  position:
+    relative;
+
+  width:
+    47vw;
+
+  height:
+    74vh;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+}
+
+
+.detail-image img {
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    contain;
+
+  opacity:
+    0;
+
+  transform:
+    scale(0.94);
+
+  transition:
+    opacity
+    0.7s ease,
+
+    transform
+    0.7s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    );
+}
+
+
+.detail-image img.loaded {
+  opacity:
+    1;
+
+  transform:
+    scale(1);
+}
+
+
+/* =========================================
+   LOADER
+========================================= */
+
+.image-loader {
+  position:
+    absolute;
+
+  z-index:
+    5;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    12px;
+
+  color:
+    var(--cream-soft);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    0.2em;
+}
+
+
+.image-loader span {
+  width:
+    22px;
+
+  height:
+    22px;
+
+  border:
+    1px solid
+    rgba(
+      238,
+      228,
+      208,
+      0.25
+    );
+
+  border-top-color:
+    var(--gold);
+
+  border-radius:
+    50%;
+
+  animation:
+    loader
+    0.8s
+    linear
+    infinite;
+}
+
+
+@keyframes loader {
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* =========================================
+   DETAIL INFORMATION
+========================================= */
+
+.detail-info {
+  width:
+    30vw;
+
+  animation:
+    detailInfoIn
+    0.65s
+    0.08s
+    ease
+    both;
+}
+
+
+@keyframes detailInfoIn {
+
+  from {
+    opacity:
+      0;
+
+    transform:
+      translateX(35px);
+  }
+
+  to {
+    opacity:
+      1;
+
+    transform:
+      translateX(0);
+  }
+}
+
+
+.detail-label {
+  color:
+    var(--gold);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    0.25em;
+}
+
+
+.detail-info h2 {
+  margin:
+    28px 0 10px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(
+      45px,
+      5vw,
+      85px
+    );
+
+  line-height:
+    0.85;
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -0.04em;
+}
+
+
+.detail-info h3 {
+  margin-top:
+    20px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    25px;
+
+  font-weight:
+    400;
+}
+
+
+.detail-meta {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap:
+    25px;
+
+  margin-top:
+    45px;
+}
+
+
+.detail-meta span {
+  color:
+    var(--gold);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    0.2em;
+}
+
+
+.detail-meta p {
+  margin-top:
+    8px;
+
+  color:
+    var(--cream-soft);
+
+  font-size:
+    10px;
+
+  line-height:
+    1.5;
+}
+
+
+.description {
+  max-width:
+    360px;
+
+  margin-top:
+    40px;
+
+  color:
+    var(--cream-soft);
+
+  font-size:
+    11px;
+
+  line-height:
+    1.9;
+}
+
+
+/* =========================================
+   RESERVATION
+========================================= */
+
+.reserve-section {
+  margin-top:
+    30px;
+
+  max-width:
+    360px;
+}
+
+
+.status-badge {
+  display:
+    inline-block;
+
+  padding:
+    8px 16px;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.2em;
+
+  border:
+    1px solid;
+}
+
+
+.status-badge.status-reserved {
+  color:
+    var(--gold);
+
+  border-color:
+    var(--gold);
+}
+
+
+.status-badge.status-sold {
+  color:
+    var(--cream-soft);
+
+  border-color:
+    rgba(
+      238,
+      228,
+      208,
+      0.35
+    );
+}
+
+
+.reserve-message {
+  margin-top:
+    14px;
+
+  color:
+    var(--cream-soft);
+
+  font-size:
+    10px;
+
+  line-height:
+    1.7;
+}
+
+
+.reserve-button {
+  margin-top:
+    4px;
+
+  padding:
+    12px 22px;
+
+  border:
+    1px solid
+    var(--gold);
+
+  background:
+    transparent;
+
+  color:
+    var(--gold);
+
+  cursor:
+    pointer;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.18em;
+
+  transition:
+    background
+    0.3s ease,
+
+    color
+    0.3s ease;
+}
+
+
+.reserve-button:hover {
+  background:
+    var(--gold);
+
+  color:
+    var(--blue-dark);
+}
+
+
+.reserve-form {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    12px;
+
+  max-width:
+    300px;
+}
+
+
+.reserve-form input {
+  padding:
+    12px 14px;
+
+  border:
+    1px solid
+    rgba(
+      238,
+      228,
+      208,
+      0.25
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.03
+    );
+
+  color:
+    var(--cream);
+
+  font-size:
+    11px;
+
+  font-family:
+    inherit;
+
+  outline:
+    none;
+
+  transition:
+    border-color
+    0.3s ease;
+}
+
+
+.reserve-form input::placeholder {
+  color:
+    var(--cream-soft);
+
+  opacity:
+    0.55;
+}
+
+
+.reserve-form input:focus {
+  border-color:
+    var(--gold);
+}
+
+
+.reserve-error {
+  color:
+    #d99a7c;
+
+  font-size:
+    10px;
+
+  line-height:
+    1.6;
+}
+
+
+.reserve-form-actions {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    18px;
+
+  margin-top:
+    4px;
+}
+
+
+.reserve-submit {
+  padding:
+    12px 22px;
+
+  border:
+    1px solid
+    var(--gold);
+
+  background:
+    var(--gold);
+
+  color:
+    var(--blue-dark);
+
+  cursor:
+    pointer;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.18em;
+
+  transition:
+    opacity
+    0.3s ease;
+}
+
+
+.reserve-submit:disabled {
+  opacity:
+    0.5;
+
+  cursor:
+    default;
+}
+
+
+.reserve-cancel {
+  border:
+    0;
+
+  background:
+    transparent;
+
+  color:
+    var(--cream-soft);
+
+  cursor:
+    pointer;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.18em;
+
+  text-decoration:
+    underline;
+}
+
+
+/* =========================================
+   RETURN BUTTON
+========================================= */
+
+.back-button {
+  margin-top:
+    35px;
+
+  padding:
+    12px 0;
+
+  border:
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(
+      198,
+      166,
+      107,
+      0.55
+    );
+
+  background:
+    transparent;
+
+  color:
+    var(--cream);
+
+  cursor:
+    pointer;
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    0.18em;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .top-bar,
+  .bottom-bar {
+    padding-left:
+      20px;
+
+    padding-right:
+      20px;
+  }
+
+
+  .painting-1 {
+    width:
+      180px;
+
+    height:
+      130px;
+  }
+
+
+  .painting-2 {
+    width:
+      140px;
+
+    height:
+      190px;
+  }
+
+
+  .painting-3 {
+    width:
+      200px;
+
+    height:
+      150px;
+  }
+
+
+  .painting-4 {
+    width:
+      150px;
+
+    height:
+      205px;
+  }
+
+
+  .painting-5 {
+    width:
+      145px;
+
+    height:
+      195px;
+  }
+
+
+  .painting-6 {
+    width:
+      175px;
+
+    height:
+      245px;
+  }
+
+
+  .painting-7 {
+    width:
+      175px;
+
+    height:
+      240px;
+  }
+
+
+  .painting-8 {
+    width:
+      175px;
+
+    height:
+      230px;
+  }
+
+
+  .painting-9 {
+    width:
+      175px;
+
+    height:
+      230px;
+  }
+
+
+  .painting-10 {
+    width:
+      200px;
+
+    height:
+      145px;
+  }
+
+
+  .painting-11 {
+    width:
+      192px;
+
+    height:
+      154px;
+  }
+
+
+  .painting-12 {
+    width:
+      140px;
+
+    height:
+      160px;
+  }
+
+
+  .painting-13 {
+    width:
+      200px;
+
+    height:
+      168px;
+  }
+
+
+  .painting-14 {
+    width:
+      136px;
+
+    height:
+      164px;
+  }
+
+
+  .painting-15 {
+    width:
+      188px;
+
+    height:
+      128px;
+  }
+
+
+  .painting-16 {
+    width:
+      168px;
+
+    height:
+      168px;
+  }
+
+
+  .painting-17 {
+    width:
+      132px;
+
+    height:
+      168px;
+  }
+
+
+  .painting-18 {
+    width:
+      152px;
+
+    height:
+      176px;
+  }
+
+
+  .painting-19 {
+    width:
+      180px;
+
+    height:
+      160px;
+  }
+
+
+  .painting-20 {
+    width:
+      140px;
+
+    height:
+      174px;
+  }
+
+
+  .painting-21 {
+    width:
+      168px;
+
+    height:
+      128px;
+  }
+
+
+  .painting-22 {
+    width:
+      208px;
+
+    height:
+      140px;
+  }
+
+
+  .painting-23 {
+    width:
+      196px;
+
+    height:
+      138px;
+  }
+
+
+  .painting-24 {
+    width:
+      184px;
+
+    height:
+      136px;
+  }
+
+
+  .artwork-overlay {
+    flex-direction:
+      column;
+
+    justify-content:
+      flex-start;
+
+    overflow-y:
+      auto;
+
+    padding:
+      80px 20px 40px;
+
+    gap:
+      30px;
+  }
+
+
+  .detail-image {
+    width:
+      100%;
+
+    height:
+      45vh;
+  }
+
+
+  .detail-info {
+    width:
+      100%;
+  }
+
+
+  .detail-info h2 {
+    font-size:
+      55px;
+  }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (
+  prefers-reduced-motion: reduce
+) {
+
+  .painting,
+  .painting-frame,
+  .painting-frame img {
+    transition:
+      none;
+  }
+
+
+  .artwork-overlay,
+  .detail-info {
+    animation:
+      none;
+  }
+
+
+  .detail-image img {
+    transition:
+      none;
+  }
+
+
+  .image-loader span {
+    animation:
+      none;
+  }
+
+
+  .preloader-panel {
+    transition:
+      opacity
+      0.4s ease;
+  }
+
+
+  .preloader-panel-exit-left,
+  .preloader-panel-exit-right {
+    transform:
+      none;
+
+    opacity:
+      0;
+  }
+
+
+  .preloader-content {
+    transition:
+      opacity
+      0.4s ease;
+  }
+
+
+  .preloader-content-exit {
+    opacity:
+      0;
+  }
+
+
+  .preloader-frame-edge {
+    animation:
+      none;
+
+    transform:
+      none;
+  }
+
+
+  .preloader-logo {
+    animation:
+      none;
+
+    opacity:
+      1;
+
+    transform:
+      none;
+
+    background-position:
+      0% 0;
+  }
+
+
+  .preloader-rule,
+  .preloader-caption {
+    animation:
+      none;
+
+    opacity:
+      1;
+  }
+
+
+  .preloader-rule::before,
+  .preloader-rule::after {
+    animation:
+      none;
+
+    width:
+      26px;
+  }
+
+
+  .preloader-rule-diamond {
+    animation:
+      none;
+
+    transform:
+      rotate(45deg) scale(1);
+  }
+
+}
